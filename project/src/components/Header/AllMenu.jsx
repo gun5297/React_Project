@@ -10,12 +10,10 @@ const AllMenu = () => {
     return (
         <div className='all-menu' onClick={handleChangeSideMenu}>
             <div className='icon'>
-                <a href='#' onClick={(e) => e.preventDefault()}>
-                    <img
-                        src='https://raw.githubusercontent.com/React-Project-Team1/data-center/50bcadb338add2ff5dcb6ac28c339d051e58635b/Icon/All_menu.svg'
-                        alt='menu'
-                    />
-                </a>
+                <img
+                    src='https://raw.githubusercontent.com/React-Project-Team1/data-center/50bcadb338add2ff5dcb6ac28c339d051e58635b/Icon/All_menu.svg'
+                    alt='menu'
+                />
             </div>
         </div>
     );
