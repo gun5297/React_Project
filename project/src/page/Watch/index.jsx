@@ -10,18 +10,22 @@ const Watch = () => {
     const { allMovies } = useSelector((state) => state.channel);
     const { Movie_ID } = useParams();
     const dispatch = useDispatch();
+    // 유저가 선택한 동영상 찾기
     const thisMovie = allMovies.find((movie) => movie.movie_id === Number(Movie_ID));
+
     useEffect(() => {
         if (isSideMenu) dispatch(SideMenuChange());
         if (allMovies.length === 0) dispatch(getAllMovies());
         document.title = `${thisMovie.movie_title}`;
     }, [Movie_ID]);
+
     if (!Movie_ID || !thisMovie)
         return (
             <WatchWrap>
                 <p>찾으시는 동영상이 없습니다.</p>
             </WatchWrap>
         );
+
     if (thisMovie)
         return (
             <WatchWrap>

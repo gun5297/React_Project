@@ -3,8 +3,12 @@ import { SideMenuChange } from '../../store/modules/HeaderSlice';
 
 const AllMenu = () => {
     const dipatch = useDispatch();
+    // 사이드 메뉴 활성화 비활성화 변경
+    const handleChangeSideMenu = () => {
+        dipatch(SideMenuChange());
+    };
     return (
-        <div className='all-menu' onClick={() => dipatch(SideMenuChange())}>
+        <div className='all-menu' onClick={handleChangeSideMenu}>
             <div className='icon'>
                 <a href='#' onClick={(e) => e.preventDefault()}>
                     <img

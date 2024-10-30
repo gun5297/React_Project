@@ -14,7 +14,9 @@ const Video = ({ movie }) => {
         movie_channel,
     } = movie;
     const { Channel } = useSelector((state) => state.channel);
+    // 마우스 올렸을때 영상 재생 컨트롤
     const [play, setPlay] = useState(false);
+
     const movie_view_conunt = (movie_like_count) => {
         if (movie_like_count >= 10000) {
             return Math.floor(movie_like_count / 10000) + '만회';
