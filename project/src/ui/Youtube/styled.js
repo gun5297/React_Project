@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const VideoWrap = styled.li`
+    cursor: pointer;
     .video-wrap {
         width: 100%;
         padding-bottom: 56%;

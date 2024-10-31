@@ -35,6 +35,23 @@ export const authSlice = createSlice({
     name: 'authSlice',
     initialState,
     reducers: {
+        // 10-30 김신영님 작업
+        UserLogin(state, action) {
+            const { user_email, user_password } = action.payload;
+            // 코드 수정 필요
+            const thisUser = state.LoginUser.find((user) => user.user_email === user_email);
+            if (thisUser.user_password === user_password) {
+                state.isAuth = true;
+                state.isLoginUser = thisUser;
+            }
+        },
+        // 로그아웃
+        UserLogout(state) {
+            state.isAuth = false;
+            state.isLoginUser = null;
+        },
+        // 10-30 김신영님 작업끝
+
         AddNewUser(state, action) {
             // 새로운 유저 회원가입 조건문 처리 해야함
             // 로그인, 로그아웃 등 기능은 별도로 구현 해야함
@@ -96,6 +113,8 @@ export const authSlice = createSlice({
 });
 
 export const {
+    UserLogin,
+    UserLogout,
     AddNewUser,
     IsAddList,
     IsDelList,
