@@ -5,7 +5,6 @@ import { RiFlagLine } from 'react-icons/ri';
 import { useState } from 'react';
 import Comment from './Comment';
 import { useNavigate } from 'react-router-dom';
-import { AiFillLike } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux'; // useSelector 추가
 // import { AddOrRemoveSubscription } from '../../store/modules/authSlice';
 
@@ -24,7 +23,7 @@ const Below = ({
     const [isLiked, setIsLiked] = useState(false);
     const [isDisLiked, setIsDisLiked] = useState(false);
     const dispatch = useDispatch();
-    const { isLoginUser } = useSelector((state) => state.auth); // 로그인된 사용자 정보 가져오기
+    const { isLoginUser, isAuth } = useSelector((state) => state.auth); // 로그인된 사용자 정보 가져오기
 
     const handleReportClick = () => {
         setShowReport((prev) => !prev);
@@ -86,11 +85,13 @@ const Below = ({
                     <div className='subscribers'>
                         <button
                             className={`subscribers-btn ${
-                                isLoginUser.Subscription_Id.includes(channelId) ? 'on' : ''
+                                isAuth && isLoginUser.Subscription_Id.includes(channelId)
+                                    ? 'on'
+                                    : ''
                             }`}
                             onClick={handleSubscribeClick}
                         >
-                            {isLoginUser.Subscription_Id.includes(channelId) ? (
+                            {isAuth && isLoginUser.Subscription_Id.includes(channelId) ? (
                                 <>
                                     <img
                                         src='https://raw.githubusercontent.com/React-Project-Team1/data-center/752a52cbfb5bf64b383b0941ba3834539b2988ac/Icon/Notification.svg'

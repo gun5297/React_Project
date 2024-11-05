@@ -1,34 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 import { LoginUser } from '../../assets/api/LoginUser';
 
 const initialState = {
     LoginUser,
     // 현재 로그인 된 유저
-    isLoginUser: {
-        user_id: 41846541,
-        user_name: 'woowakgood',
-        user_age: 35,
-        user_tel: '010-4975-6179',
-        user_email: 'woowakgood@naver.com',
-        user_password: '3715',
-        user_search_list: [{ search_id: 1, search: 'gaming' }],
-        // 시청 기록
-        Viewing_Record: [
-            // 동영상 정보
-        ],
-        // 재생 목록
-        Playlist: [],
-        // 나중에 볼 동영상
-        Later_Watch: [],
-        // 좋아요 표시한 동영상
-        like_Movie_List: [],
-        // 오프라인 저장 동영상
-        Download_List: [],
-        // 구독한 채널 아이디
-        Subscription_Id: [984562],
-    },
-    isAuth: true,
+    isLoginUser: {},
+    isAuth: false,
 };
 
 export const authSlice = createSlice({
@@ -51,7 +28,6 @@ export const authSlice = createSlice({
                 state.isAuth = false;
                 state.isLoginUser = {};
             }
-            console.log(state.isAuth);
         },
 
         UserLogout(state) {
@@ -63,7 +39,7 @@ export const authSlice = createSlice({
         AddNewUser(state, action) {
             // 새로운 유저 회원가입 조건문 처리 해야함
             // 로그인, 로그아웃 등 기능은 별도로 구현 해야함
-            const NewUser = { user_id: uuidv4() };
+            const NewUser = { user_id: Math.floor(Math.random() * 1000000) };
             state.LoginUser.push(NewUser);
             state.isLoginUser = NewUser;
             state.isAuth = true;
@@ -91,7 +67,7 @@ export const authSlice = createSlice({
             const User = state.LoginUser.find((user) => user.user_id === user_id);
 
             // 아래 객체에 코드 작성
-            const NewSearch = { search_id: uuidv4() };
+            const NewSearch = { search_id: Math.floor(Math.random() * 1000000) };
 
             User.user_search_list.push(NewSearch);
             state.isLoginUser = User;

@@ -133,7 +133,34 @@ export const HeaderWrap = styled.header`
 `;
 
 export const SideMenuWrap = styled.div`
-    min-height: 100vh;
+    .channel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 10% 0;
+        .channel-img-wrap {
+            border-radius: 50%;
+            overflow: hidden;
+            width: 12rem;
+            height: 12rem;
+            margin-bottom: 6%;
+            img {
+                height: 100%;
+            }
+        }
+        .channel-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .my-channel-name {
+                font-size: 1.2rem;
+                color: #666;
+            }
+        }
+    }
     ul {
         border-bottom: 1px solid #dcdcdc;
         box-sizing: border-box;
@@ -163,6 +190,16 @@ export const SideMenuWrap = styled.div`
             }
             img {
                 margin-right: 2rem;
+            }
+        }
+    }
+    .studiomenu-list {
+        li {
+            min-height: 5rem;
+            color: #666;
+            img {
+                max-width: 2.6rem;
+                max-height: 2.6rem;
             }
         }
     }
@@ -200,5 +237,15 @@ export const StudioLayoutWrap = styled.div`
     }
     .content-wrap {
         display: flex;
+    }
+    .studio-title {
+        font-size: 2.6rem;
+        font-weight: 500;
+        margin-bottom: 3rem;
+    }
+    .inner {
+        padding: 2%;
+        box-sizing: border-box;
+        width: 100%;
     }
 `;
