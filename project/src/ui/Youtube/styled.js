@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const VideoWrap = styled.li`
     cursor: pointer;
+    width: 100%;
     .video-wrap {
         width: 100%;
         padding-bottom: 56%;
@@ -26,8 +27,8 @@ export const VideoWrap = styled.li`
         }
     }
     .text-wrap {
-        display: flex;
         position: relative;
+        display: flex;
     }
     .channel-logo {
         width: 3.4rem;
@@ -69,9 +70,17 @@ export const VideoWrap = styled.li`
         width: 100%;
         margin-bottom: 1%;
     }
-    .pluse-menu {
+    .close-menu {
+        display: none;
+        cursor: pointer;
+    }
+    .plus-menu {
         position: absolute;
-        right: 0;
         top: 0;
+        right: 0;
+        z-index: 400;
+        img {
+            position: relative;
+        }
     }
 `;

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { VideoWrap } from './styled';
 import { SideMenuChange } from '../../store/modules/headerSlice';
+import { removeWatchedVideo } from '../../store/modules/viewingRecordSlice';
+import SaveList from '../SaveList/SaveList';
 
 const Video = ({ movie }) => {
     const {
@@ -28,7 +30,18 @@ const Video = ({ movie }) => {
             return movie_like_count + '회';
         }
     };
+    // 시청기록삭제
+    const handleDelete = (e) => {
+        e.stopPropagation();
+        dispatch(removeWatchedVideo(movie_id));
+    };
     const navigate = useNavigate();
+
+    const [saveShow, setSaveShow] = useState(false);
+    const handleShow = (e) => {
+        e.stopPropagation();
+        setSaveShow(!saveShow);
+    };
     return (
         <VideoWrap
             onClick={() => {
@@ -46,7 +59,7 @@ const Video = ({ movie }) => {
                     <iframe
                         src={movie_video + '&controls=0'}
                         title={movie_title}
-                        allowfullscreen='true'
+                        allowFullScreen={true}
                         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                         autoPlay='1'
                     />
@@ -68,11 +81,20 @@ const Video = ({ movie }) => {
                         </span>
                     </p>
                 </div>
-                <div className='pluse-menu'>
+                {/* 11/4 서희원 추가  */}
+                <div className='close-menu' onClick={handleDelete}>
+                    <img
+                        src='https://raw.githubusercontent.com/React-Project-Team1/data-center/a95871720c235be8180dd58ccc5bf67fbb92d7a4/Icon/Close_Btn.svg'
+                        alt='close-menu'
+                    />
+                </div>
+                <div className='plus-menu'>
                     <img
                         src='https://raw.githubusercontent.com/React-Project-Team1/data-center/8771a05a9203fec750cd13cc666d881eddd08ad9/Icon/See_more.svg'
                         alt='pluse-menu'
+                        onClick={handleShow}
                     />
+                    <SaveList saveShow={saveShow} />
                 </div>
             </div>
         </VideoWrap>
