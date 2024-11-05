@@ -1,11 +1,13 @@
 import { useSelector } from 'react-redux';
 import Video from '../../ui/Youtube/Video';
 
-const WatchList = ({ currentCategory, currentVideoCategory }) => {
+const WatchList = ({ currentVideoCategory }) => {
     const { allMovies } = useSelector((state) => state.channel);
-
     // 현재 재생 중인 영상과 같은 카테고리의 영화만 필터링
-    const filteredMovies = allMovies.filter((movie) => movie.category === currentVideoCategory);
+
+    const filteredMovies = allMovies.filter(
+        (movie) => movie.movie_category === currentVideoCategory
+    );
 
     return (
         <ul className='sub_video_wrap'>

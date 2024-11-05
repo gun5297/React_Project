@@ -74,10 +74,7 @@ const Watch = () => {
                 />
             </div>
             <WatchListWrap>
-                <WatchList
-                    currentCategory={thisMovie.category}
-                    currentVideoCategory={thisMovie.category}
-                />
+                <WatchList currentVideoCategory={thisMovie.movie_category} />
             </WatchListWrap>
         </WatchWrap>
     );
