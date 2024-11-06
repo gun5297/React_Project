@@ -236,6 +236,13 @@ export const SideMenuWrap = styled.div`
     .login-menu {
         width: 10rem;
     }
+    .thisChannel-item {
+        img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+        }
+    }
 `;
 
 export const LayoutWrap = styled.div`

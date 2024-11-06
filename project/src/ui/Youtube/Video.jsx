@@ -15,6 +15,7 @@ const Video = ({ movie }) => {
         movie_like_count,
         movie_date,
         movie_channel,
+        movie_video_type,
     } = movie;
     const { Channel } = useSelector((state) => state.channel);
     const { isSideMenu } = useSelector((state) => state.header);
@@ -69,13 +70,17 @@ const Video = ({ movie }) => {
                 onMouseLeave={() => setPlay(false)}
             >
                 {play ? (
-                    <iframe
-                        src={movie_video + '&controls=0'}
-                        title={movie_title}
-                        allowFullScreen={true}
-                        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-                        autoPlay='1'
-                    />
+                    movie_video_type !== 'video' ? (
+                        <iframe
+                            src={movie_video + '&controls=0'}
+                            title={movie_title}
+                            allowFullScreen={true}
+                            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                            autoPlay='1'
+                        />
+                    ) : (
+                        <video autoPlay muted src={movie_video}></video>
+                    )
                 ) : (
                     <img src={movie_image} alt={movie_title} />
                 )}
