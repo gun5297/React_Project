@@ -43,8 +43,10 @@ export const YouTubeWrap = styled.div`
                 }
             }
             margin-bottom: 2.2%;
-            .movie_info {
-                max-width: 26rem;
+            .text-wrap {
+                .movie_info {
+                    max-width: 26rem;
+                }
             }
         }
     }
@@ -54,5 +56,9 @@ export const YouTubeWrap = styled.div`
         .main-banner-img {
             width: 100%;
         }
+    }
+    #scroll-anchor {
+        min-height: 10rem;
+        position: relative;
     }
 `;

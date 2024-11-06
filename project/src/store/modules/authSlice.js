@@ -4,8 +4,30 @@ import { LoginUser } from '../../assets/api/LoginUser';
 const initialState = {
     LoginUser,
     // 현재 로그인 된 유저
-    isLoginUser: {},
-    isAuth: false,
+    isLoginUser: {
+        user_id: 904206,
+        user_name: '무찌',
+        user_age: 35,
+        user_tel: '010-0654-7051',
+        user_email: 'moozzi@naver.com',
+        user_password: '1111',
+        user_search_list: [{ search_id: 1, search: 'song' }],
+        // 시청 기록
+        Viewing_Record: [
+            // 동영상 정보
+        ],
+        // 재생 목록
+        Playlist: [],
+        // 나중에 볼 동영상
+        Later_Watch: [],
+        // 좋아요 표시한 동영상
+        like_Movie_List: [],
+        // 오프라인 저장 동영상
+        Download_List: [],
+        // 구독한 채널 아이디
+        Subscription_Id: [806540, 798311],
+    },
+    isAuth: true,
 };
 
 export const authSlice = createSlice({
@@ -46,12 +68,29 @@ export const authSlice = createSlice({
         },
         IsAddList(state, action) {
             // 시청기록 , 재생목록, 나중에 볼 동영상, 좋아요 표시한 동영상, 오프라인 저장 동영상 을 추가하는 동작
-            // action.payload.type 으로 Viewing_Record,Playlist... 등을 받아와서 처리
-            const { user_id, type } = action.payload;
+            // action.payload.type 으로 Viewing_Record, Playlist... 등을 받아와서 처리
+            const { user_id, type, movie } = action.payload; // 추가할 동영상 정보는 movie로 전달됨
             const User = state.LoginUser.find((user) => user.user_id === user_id);
-            User[type].push();
-            // 유저 안에서 정보를 바꿨기 때문에 현재 로그인한 유저에게 적용 해야함
-            state.isLoginUser = User;
+            if (User && User[type]) {
+                // 중복 데이터 체크
+                const existingIndex = User[type].findIndex(
+                    (item) => item.movie_id === movie.movie_id
+                );
+                if (existingIndex !== -1) {
+                    // 중복 데이터가 있는 경우, 오래된 요소를 제거하고 새로운 데이터를 추가
+                    User[type].splice(existingIndex, 1); // 오래된 데이터 삭제
+                }
+                User[type].push(movie); // type에 해당하는 배열에 추가
+
+                // 최근 시청한 동영상 위쪽 정렬
+                User[type].sort((a, b) => {
+                    return (
+                        new Date(b.movie_date.year, b.movie_date.month - 1, b.movie_date.day) -
+                        new Date(a.movie_date.year, a.movie_date.month - 1, a.movie_date.day)
+                    );
+                });
+                state.isLoginUser = User; // 변경 사항 적용
+            }
         },
         IsDelList(state, action) {
             // 시청기록 , 재생목록, 나중에 볼 동영상, 좋아요 표시한 동영상, 오프라인 저장 동영상 을 삭제하는 동작

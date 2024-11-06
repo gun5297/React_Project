@@ -1,15 +1,20 @@
 import { useSelector } from 'react-redux';
 import CommentDetail from './CommentDetail';
 
-const CommentList = ({ movieId }) => {
-    const { isLoginUser, isAuth } = useSelector((state) => state.auth);
+const CommentList = ({ moviesComment, movie_id }) => {
+    const { allMovies } = useSelector((state) => state.channel);
 
     return (
         <ul className='user_comment'>
-            <div>
-                <span className='user-profile'>{isAuth && isLoginUser.user_name.charAt(0)}</span>
-            </div>
-            <CommentDetail />
+            {moviesComment.map((item) => (
+                <li key={item.movie_id}>
+                    <div>
+                        <span className='user-profile'>{item.comment_user_name.charAt(0)}</span>
+                    </div>
+
+                    <CommentDetail item={item} />
+                </li>
+            ))}
         </ul>
     );
 };

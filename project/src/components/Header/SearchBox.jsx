@@ -1,23 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SearchBox = () => {
+const SearchBox = ({ setIsShown, isShown }) => {
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
-    const onSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         navigate(`/movies/${search}`);
         setSearch('');
     };
     return (
-        <form onSubmit={onSubmit} className='search-box'>
+        <form onSubmit={handleSubmit} className='search-box' onClick={() => setIsShown(!isShown)}>
             <input
                 type='text'
                 name='search'
                 id='search'
                 placeholder='검색'
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                    setSearch(e.target.value);
+                }}
             />
             <button type='submit' className='search-btn'>
                 <img

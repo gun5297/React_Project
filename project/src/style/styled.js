@@ -19,7 +19,8 @@ export const HeaderWrap = styled.header`
             align-items: center;
         }
         .logo-gif {
-            width: 30%;
+            max-width: 10rem;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -77,11 +78,11 @@ export const HeaderWrap = styled.header`
             }
         }
         .search-history {
-            display: none;
             position: absolute;
             background: #fff;
             border-radius: 1rem;
-            width: 50rem;
+            min-width: 40rem;
+            max-width: 50rem;
             padding: 1.5rem;
             box-shadow: #00000050 0px 1px 3px;
             top: 100%;
@@ -90,11 +91,27 @@ export const HeaderWrap = styled.header`
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                margin-bottom: 2%;
+                &:last-child {
+                    margin-bottom: 0%;
+                }
+                &:hover {
+                    background: #fafafa;
+                }
                 .search-keyword {
                     display: flex;
                     align-items: center;
+                    width: 90%;
                     img {
-                        margin-right: 10%;
+                        margin-right: 3%;
+                    }
+                }
+                .history-btn {
+                    border: none;
+                    background: none;
+                    display: flex;
+                    .close-btn {
+                        width: 70%;
                     }
                 }
             }
@@ -247,5 +264,61 @@ export const StudioLayoutWrap = styled.div`
         padding: 2%;
         box-sizing: border-box;
         width: 100%;
+    }
+`;
+
+export const SpinnerWrap = styled.div`
+    .spinner {
+        position: absolute;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .spinner-circle {
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: inherit;
+        padding: 0.5rem 1rem;
+    }
+
+    .spinner-circle:before {
+        z-index: 5;
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        border: 3px dashed #333;
+        width: 50px;
+        height: 50px;
+        border-left: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        animation: loading 1s linear infinite;
+    }
+
+    .spinner-circle:after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        border: 3px dashed #333;
+        width: 50px;
+        height: 50px;
+        border-left: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        animation: loading 1s ease infinite;
+        z-index: 10;
+    }
+
+    @keyframes loading {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 `;
