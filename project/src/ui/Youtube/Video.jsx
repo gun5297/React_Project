@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { VideoWrap } from './styled';
 import { SideMenuChange } from '../../store/modules/headerSlice';
-import { removeWatchedVideo } from '../../store/modules/viewingRecordSlice';
 import SaveList from '../SaveList/SaveList';
+import { IsDelList } from '../../store/modules/authSlice';
 
 const Video = ({ movie }) => {
     const {
@@ -17,8 +17,10 @@ const Video = ({ movie }) => {
         movie_channel,
         movie_video_type,
     } = movie;
+    const { type } = useParams(); // useParams로 type을 받아옴
     const { Channel } = useSelector((state) => state.channel);
     const { isSideMenu } = useSelector((state) => state.header);
+    const { isLoginUser } = useSelector((state) => state.auth); // 로그인한 유저 정보
     // 마우스 올렸을때 영상 재생 컨트롤
     const [play, setPlay] = useState(false);
     const dispatch = useDispatch();
@@ -34,7 +36,13 @@ const Video = ({ movie }) => {
     // 시청기록삭제
     const handleDelete = (e) => {
         e.stopPropagation();
-        dispatch(removeWatchedVideo(movie_id));
+        dispatch(
+            IsDelList({
+                user_id: isLoginUser.user_id,
+                type: type, // 카테고리 (Viewing_Record, Playlist 등)
+                movie_id: movie_id,
+            })
+        );
     };
     const navigate = useNavigate();
 
@@ -112,7 +120,7 @@ const Video = ({ movie }) => {
                         alt='pluse-menu'
                         onClick={handleShow}
                     />
-                    {saveShow && <SaveList />}
+                    {saveShow && <SaveList movie={movie} />}
                 </div>
             </div>
         </VideoWrap>

@@ -5,11 +5,10 @@ export const WatchWrap = styled.div`
     box-sizing: border-box;
     padding: 2% 3.5%;
     display: flex;
-
     .video-wrap {
         position: relative;
         width: 70%;
-        margin: 0 auto;
+        margin: 0 0 0 2rem;
         .videoInner {
             width: 100%;
             height: 0;
@@ -36,8 +35,8 @@ export const WatchListWrap = styled.div`
     flex-direction: column;
     .sub_video_wrap {
         width: 100%;
-        margin-left: -4.2rem;
     }
+
     .video-loder {
         display: flex;
         margin-bottom: 1.6rem;
@@ -48,13 +47,13 @@ export const WatchListWrap = styled.div`
         }
         .text-wrap {
             width: 100%;
-            max-width: 20rem;
+            max-width: 25rem;
 
             .channel-logo {
                 display: none;
             }
             .movie_info {
-                margin-left: -2rem;
+                margin-left: 1rem;
                 .movie_title {
                     font-size: 1.4rem;
                     word-break: break-all;

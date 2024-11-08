@@ -4,30 +4,8 @@ import { LoginUser } from '../../assets/api/LoginUser';
 const initialState = {
     LoginUser,
     // 현재 로그인 된 유저
-    isLoginUser: {
-        user_id: 904206,
-        user_name: '무찌',
-        user_age: 35,
-        user_tel: '010-0654-7051',
-        user_email: 'moozzi@naver.com',
-        user_password: '1111',
-        user_search_list: [{ search_id: 1, search: 'song' }],
-        // 시청 기록
-        Viewing_Record: [
-            // 동영상 정보
-        ],
-        // 재생 목록
-        Playlist: [],
-        // 나중에 볼 동영상
-        Later_Watch: [],
-        // 좋아요 표시한 동영상
-        like_Movie_List: [],
-        // 오프라인 저장 동영상
-        Download_List: [],
-        // 구독한 채널 아이디
-        Subscription_Id: [806540, 798311],
-    },
-    isAuth: true,
+    isLoginUser: {},
+    isAuth: false,
 };
 
 export const authSlice = createSlice({
@@ -122,8 +100,13 @@ export const authSlice = createSlice({
             // 구독 목록 추가
             const { user_id } = action.payload;
             const User = state.LoginUser.find((user) => user.user_id === user_id);
-            User.Subscription_Id.push();
-            state.isLoginUser = User;
+            if (User) {
+                // 중복 채널 추가 X
+                if (!User.Subscription_Id.includes(channel_id)) {
+                    User.Subscription_Id.push(channel_id);
+                }
+                state.isLoginUser = User;
+            } // 1106 김신영 수정
         },
         DelSubscription(state, action) {
             // 구독 목록 삭제
