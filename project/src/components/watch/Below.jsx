@@ -4,7 +4,7 @@ import BelowDetail from './BelowDetail';
 import { RiFlagLine } from 'react-icons/ri';
 import { useState } from 'react';
 import Comment from './Comment';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddNewSubscription, DelSubscription, IsAddList } from '../../store/modules/authSlice';
 
@@ -20,16 +20,16 @@ const Below = ({
     moviesComment,
     movie_id,
     channel_name,
+    movie_channel,
 }) => {
     const [showReport, setShowReport] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
     const [isDisLiked, setIsDisLiked] = useState(false);
     const dispatch = useDispatch();
     const { isLoginUser } = useSelector((state) => state.auth); // 로그인된 사용자 정보 가져오기
-    const { Channel_name } = useParams();
 
     // 현재 채널이 구독 중인지 확인
-    const isSubscribed = isLoginUser.Subscription_Id.includes(channelId);
+    const isSubscribed = isLoginUser?.Subscription_Id?.includes(channelId);
 
     const handleReportClick = () => {
         setShowReport((prev) => !prev);
@@ -171,7 +171,11 @@ const Below = ({
                 channelImage={channelImage}
                 channel_name={channel_name}
             />
-            <Comment moviesComment={moviesComment} movie_id={movie_id} />
+            <Comment
+                moviesComment={moviesComment}
+                movie_id={movie_id}
+                movie_channel={movie_channel}
+            />
         </BelowWrap>
     );
 };

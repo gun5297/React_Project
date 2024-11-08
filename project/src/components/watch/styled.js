@@ -337,9 +337,7 @@ export const CommentWrap = styled.div`
     .comment_footer {
         display: flex;
         justify-content: space-between;
-    }
-    .emoji {
-        margin-left: 6rem;
+        margin-top: 1rem;
     }
     .btn {
         border-radius: 5rem;
@@ -363,6 +361,11 @@ export const CommentWrap = styled.div`
         display: flex;
         height: auto;
         position: relative;
+        flex-direction: column;
+        li {
+            display: flex;
+            margin-bottom: 2rem;
+        }
     }
     .user-profile {
         display: flex;
@@ -402,10 +405,6 @@ export const CommentWrap = styled.div`
         font-size: 1.4rem;
         font-weight: 400;
         line-height: 2rem;
-        position: absolute;
-        left: 4.2rem;
-        top: 0;
-
         .userId {
             font-size: 1.3rem;
             font-weight: 600;
