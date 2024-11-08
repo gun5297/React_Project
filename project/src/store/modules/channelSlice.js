@@ -27,12 +27,10 @@ export const channelSlice = createSlice({
                 Movies: [],
             };
             state.Channel[emailPrefix] = NewChannel;
-            console.log(state.Channel[emailPrefix]);
         },
         // 영상 추가
         AddNewMovies(state, action) {
             const NewMove = { movie_id: Math.floor(Math.random() * 999999), ...action.payload };
-            console.log(action.payload.movie_indexDB_id);
             state.Channel[action.payload.movie_channel].Movies.push(NewMove);
         },
         // 영상 삭제
@@ -44,6 +42,7 @@ export const channelSlice = createSlice({
         // 영상 수정
         ChangeMovies(state, action) {},
         // 댓글 추가
+        // 11-08 고건영 작업
         AddNewMoviesComment(state, action) {
             const { movie_id, movie_channel, comment_body, comment_user_id, comment_user_name } =
                 action.payload;

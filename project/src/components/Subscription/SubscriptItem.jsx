@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button } from '../../ui/Button';
+import { useNavigate } from 'react-router-dom';
 import Popup from '../../ui/popup/Popup';
 
 const SubscriptItem = ({ channel, handleChangeThisId, thisChannelID }) => {
@@ -12,6 +13,7 @@ const SubscriptItem = ({ channel, handleChangeThisId, thisChannelID }) => {
         Movies,
     } = channel;
 
+    const navigate = useNavigate();
     useEffect(() => {
         const modal = document.querySelector('#subscript-popup');
         if (thisChannelID === channel_id) {
@@ -19,13 +21,14 @@ const SubscriptItem = ({ channel, handleChangeThisId, thisChannelID }) => {
         }
     }, [thisChannelID, channel_id]);
 
-    const handleShowPopup = () => {
+    const handleShowPopup = (e) => {
+        e.stopPropagation();
         handleChangeThisId(channel_id);
         const modal = document.querySelector('#subscript-popup');
         modal.showModal();
-        setIsModalOpen(true);
     };
-    const handleClosePopup = () => {
+    const handleClosePopup = (e) => {
+        e.stopPropagation();
         const modal = document.querySelector('#subscript-popup');
         modal.close();
     };

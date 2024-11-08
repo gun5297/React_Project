@@ -36,10 +36,29 @@ export const authSlice = createSlice({
             // localStorage 처리...
         },
         // 10-31 김신영님 작업끝
+        // 11-08 고건영 작업
         AddNewUser(state, action) {
             // 새로운 유저 회원가입 조건문 처리 해야함
             // 로그인, 로그아웃 등 기능은 별도로 구현 해야함
-            const NewUser = { user_id: Math.floor(Math.random() * 1000000) };
+            const NewUser = {
+                user_id: Math.floor(Math.random() * 1000000),
+                ...action.payload,
+                user_search_list: [],
+                // 시청 기록
+                Viewing_Record: [
+                    // 동영상 정보
+                ],
+                // 재생 목록
+                Playlist: [],
+                // 나중에 볼 동영상
+                Later_Watch: [],
+                // 좋아요 표시한 동영상
+                like_Movie_List: [],
+                // 오프라인 저장 동영상
+                Download_List: [],
+                // 구독한 채널 아이디
+                Subscription_Id: [],
+            };
             state.LoginUser.push(NewUser);
             state.isLoginUser = NewUser;
             state.isAuth = true;
@@ -98,10 +117,9 @@ export const authSlice = createSlice({
         },
         AddNewSubscription(state, action) {
             // 구독 목록 추가
-            const { user_id } = action.payload;
+            const { user_id, channel_id } = action.payload;
             const User = state.LoginUser.find((user) => user.user_id === user_id);
             if (User) {
-                // 중복 채널 추가 X
                 if (!User.Subscription_Id.includes(channel_id)) {
                     User.Subscription_Id.push(channel_id);
                 }

@@ -6,13 +6,13 @@ import { SideMenuChange } from '../../store/modules/HeaderSlice';
 import { getAllMovies } from '../../store/modules/channelSlice';
 import Below from '../../components/watch/Below';
 import WatchList from '../../components/watch/WatchList';
-import { Channel } from '../../assets/api/Channel';
 import { IsAddList } from '../../store/modules/authSlice';
 
 const Watch = () => {
     const { isSideMenu } = useSelector((state) => state.header);
     const { allMovies } = useSelector((state) => state.channel);
     const { isLoginUser } = useSelector((state) => state.auth);
+    const { Channel } = useSelector((state) => state.channel);
     const { Movie_ID } = useParams();
     const dispatch = useDispatch();
 
@@ -87,7 +87,8 @@ const Watch = () => {
                         moviesComment={thisMovie.movie_comments}
                         movie_id={thisMovie.movie_id}
                         movie_channel={thisMovie.movie_channel}
-                        channel_name={thisChannel.Movies[0].movie_channel}
+                        channel_name={thisChannel?.Movies[0]?.movie_channel}
+                        channelId={thisChannel.channel_id}
                     />
                 </div>
                 <WatchListWrap>
