@@ -66,7 +66,7 @@ export const authSlice = createSlice({
                 state.isLoginUser = NewUser;
                 state.isAuth = true;
             }
-            localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
+            localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.NewUser));
             localStorage.setItem('YoutubeIsAuth', JSON.stringify(state.isAuth));
             localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
         },
@@ -88,8 +88,9 @@ export const authSlice = createSlice({
                         new Date(a.movie_date.year, a.movie_date.month - 1, a.movie_date.day)
                 );
                 state.isLoginUser = User;
-                localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
             }
+            localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
+            localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
         },
 
         IsDelList(state, action) {
@@ -99,6 +100,17 @@ export const authSlice = createSlice({
                 User[type] = User[type].filter((user) => user.movie_id !== movie.movie_id);
             }
             state.isLoginUser = User;
+            localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
+            localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
+        },
+        AllDelList(state, action) {
+            const { user_id, type } = action.payload;
+            const User = state.LoginUser.find((user) => user.user_id === user_id);
+            if (User) {
+                User[type] = [];
+            }
+            state.isLoginUser = User;
+            localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
             localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
         },
 
@@ -114,6 +126,7 @@ export const authSlice = createSlice({
                     };
                     User.user_search_list.unshift(NewSearch);
                     state.isLoginUser = User;
+                    localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
                     localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
                 }
             }
@@ -127,6 +140,7 @@ export const authSlice = createSlice({
                     (item) => item.search !== search
                 );
                 state.isLoginUser = User;
+                localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
                 localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
             }
         },
@@ -139,6 +153,7 @@ export const authSlice = createSlice({
                     User.Subscription_Id.push(channel_id);
                 }
                 state.isLoginUser = User;
+                localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
                 localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
             }
         },
@@ -150,6 +165,7 @@ export const authSlice = createSlice({
                 (Subscription) => Subscription !== channel_id
             );
             state.isLoginUser = User;
+            localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
             localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
         },
     },
@@ -160,6 +176,7 @@ export const {
     UserLogout,
     AddNewUser,
     IsAddList,
+    AllDelList,
     IsDelList,
     AddNewSearchList,
     DelSearchList,
