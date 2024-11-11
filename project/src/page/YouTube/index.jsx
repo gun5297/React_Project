@@ -113,21 +113,37 @@ const YouTube = () => {
     }, [isLoginUser?.Viewing_Record, isLoginUser?.user_search_list]);
 
     useEffect(() => {
-        const cateroyFilter = allMovies.filter((movie) =>
-            movie.movie_category.includes(userActivities?.movieCategory)
-        );
+        const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-        const titleFilter = allMovies.filter((movie) =>
-            movie.movie_title.includes(userActivities?.searchList)
-        );
+        const randomCategory = userActivities?.movieCategory
+            ? random(userActivities?.movieCategory)
+            : null;
 
-        const filteredMovies =
-            cateroyFilter || titleFilter.sort(() => Math.random() - 0.5).slice(0, 10);
+        const randomSearchTerm = userActivities?.searchList
+            ? random(userActivities?.searchList)
+            : null;
 
-        setMainVideo(filteredMovies);
+        const categoryFilter = randomCategory
+            ? allMovies.filter((movie) => movie.movie_category.includes(randomCategory))
+            : [];
+
+        const titleFilter = randomSearchTerm
+            ? allMovies.filter((movie) => movie.movie_title.includes(randomSearchTerm))
+            : [];
+
+        const filteredMovies = categoryFilter || titleFilter;
+        const shuffledMovies = filteredMovies.sort(() => Math.random() - 0.5).slice(0, 10);
+
+        if (shuffledMovies.length < 10) {
+            const additionalMovies = allMovies
+                .filter((movie) => !shuffledMovies.includes(movie))
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 10 - shuffledMovies.length);
+            setMainVideo([...shuffledMovies, ...additionalMovies]);
+        } else {
+            setMainVideo(shuffledMovies);
+        }
     }, [userActivities]);
-
-    if (mainVideo) console.log(mainVideo);
 
     if (!allMovies) return <Spinner />;
     if (allMovies)
