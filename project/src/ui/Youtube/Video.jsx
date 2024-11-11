@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { VideoWrap } from './styled';
 import { SideMenuChange } from '../../store/modules/headerSlice';
 import SaveList from '../SaveList/SaveList';
 import { IsDelList } from '../../store/modules/authSlice';
-
-const Video = ({ movie }) => {
+const Video = ({ movie, type }) => {
     const {
         movie_id,
         movie_title,
@@ -16,11 +15,12 @@ const Video = ({ movie }) => {
         movie_date,
         movie_channel,
         movie_video_type,
+        movie_body,
     } = movie;
-    const { type } = useParams(); // useParams로 type을 받아옴
     const { Channel } = useSelector((state) => state.channel);
     const { isSideMenu } = useSelector((state) => state.header);
     const { isLoginUser } = useSelector((state) => state.auth); // 로그인한 유저 정보
+
     // 마우스 올렸을때 영상 재생 컨트롤
     const [play, setPlay] = useState(false);
     const dispatch = useDispatch();
@@ -33,24 +33,25 @@ const Video = ({ movie }) => {
             return movie_like_count + '회';
         }
     };
+
     // 시청기록삭제
     const handleDelete = (e) => {
         e.stopPropagation();
         dispatch(
             IsDelList({
                 user_id: isLoginUser.user_id,
-                type: type, // 카테고리 (Viewing_Record, Playlist 등)
-                movie_id: movie_id,
+                type, // 카테고리 (Viewing_Record, Playlist 등)
+                movie,
             })
         );
     };
     const navigate = useNavigate();
-
     const [saveShow, setSaveShow] = useState(false);
     const handleShow = (e) => {
         e.stopPropagation();
         setSaveShow(!saveShow);
     };
+
     //외부 클릭 감지 핸들러
     const wrapRef = useRef(null);
     const outClick = (event) => {
@@ -64,6 +65,7 @@ const Video = ({ movie }) => {
             document.removeEventListener('mousedown', outClick);
         };
     }, []);
+
     return (
         <VideoWrap
             onClick={() => {
@@ -106,6 +108,7 @@ const Video = ({ movie }) => {
                             {movie_date.year}.{movie_date.month}.{movie_date.day}
                         </span>
                     </p>
+                    <p className='movie_body'>{movie_body}</p>
                 </div>
                 {/* 11/4 서희원 추가  */}
                 <div className='close-menu' onClick={handleDelete}>
@@ -126,5 +129,4 @@ const Video = ({ movie }) => {
         </VideoWrap>
     );
 };
-
 export default Video;

@@ -21,13 +21,11 @@ export const BelowWrap = styled.div`
             align-items: center;
             flex-wrap: nowrap;
             overflow: hidden;
-
             .channelImg {
                 width: 4rem;
                 margin-top: 0.5rem;
                 border-radius: 2.5rem;
             }
-
             .channel_detail {
                 margin-left: 1.2rem;
                 margin-right: 2.4rem;
@@ -36,7 +34,8 @@ export const BelowWrap = styled.div`
                 flex-direction: column;
                 justify-content: center;
                 white-space: nowrap;
-
+                user-select: none;
+                cursor: pointer;
                 .channel_name {
                     font-size: 1.7rem;
                     font-weight: 600;
@@ -57,24 +56,6 @@ export const BelowWrap = styled.div`
 
         .subscribers {
             margin-left: 1.5rem;
-            button {
-                max-height: 3.6rem;
-            }
-            .subscribers-btn {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                img {
-                    height: 1000%;
-                }
-            }
-            .not-subscribers-btn {
-                color: #fff;
-                background-color: #212121;
-                &:hover {
-                    background-color: #424242;
-                }
-            }
         }
 
         .action {
@@ -86,11 +67,9 @@ export const BelowWrap = styled.div`
                     position: relative;
                     margin-left: 0;
                     border-radius: 3rem 0 0 3rem;
-
                     &:last-child {
                         border-radius: 0 3rem 3rem 0;
                         padding-left: 15px;
-
                         &::after {
                             content: '';
                             height: 1.7rem;
@@ -137,6 +116,20 @@ export const BelowWrap = styled.div`
         position: absolute;
         right: -4rem;
         top: 10rem;
+        background: #fff;
+        padding: 1%;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 15px;
+        z-index: 1;
+    }
+    .CommentList {
+        position: relative;
+    }
+    .Comment_report {
+        width: auto;
+        position: absolute;
+        right: -5rem;
+        top: 3.5rem;
         background: #fff;
         padding: 1%;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -382,6 +375,13 @@ export const CommentWrap = styled.div`
         color: #fff;
         width: 4rem;
         height: 4rem;
+    }
+    .CommentBtn {
+        height: 8rem;
+        font-size: 2rem;
+    }
+    .CommentDel {
+        width: 5rem;
     }
     .comment_user {
         margin-bottom: 5rem;

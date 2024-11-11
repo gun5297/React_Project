@@ -6,11 +6,13 @@ import { useState } from 'react';
 import Comment from './Comment';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AddNewSubscription, DelSubscription, IsAddList } from '../../store/modules/authSlice';
+import { IsAddList, IsDelList } from '../../store/modules/authSlice';
 import { Button } from '../../ui/Button';
-import Popup from '../../ui/popup/Popup';
+
+import SubscribersBtn from '../../ui/Subscribers/SubscribersBtn';
 
 const Below = ({
+    movie,
     title,
     channelName,
     channelSubscribers,
@@ -25,58 +27,28 @@ const Below = ({
     movie_channel,
 }) => {
     const [showReport, setShowReport] = useState(false);
-    const [isLiked, setIsLiked] = useState(false);
-    const [isDisLiked, setIsDisLiked] = useState(false);
     const dispatch = useDispatch();
-    const { isLoginUser } = useSelector((state) => state.auth); // 로그인된 사용자 정보 가져오기
+    const { isLoginUser, isAuth } = useSelector((state) => state.auth); // 로그인된 사용자 정보 가져오기
+    const navigate = useNavigate();
 
-    // 현재 채널이 구독 중인지 확인
-    const isSubscribed = isLoginUser?.Subscription_Id?.includes(channelId);
+    //오프라인/재생목록 저장
+    const handleClickType = (e, saveType) => {
+        e.preventDefault();
+        if (isLoginUser || isAuth) {
+            if (isLoginUser[saveType].find((user) => user.movie_id === movie_id)) {
+                dispatch(IsDelList({ user_id: isLoginUser.user_id, type: saveType, movie: movie }));
+            } else {
+                dispatch(IsAddList({ user_id: isLoginUser.user_id, type: saveType, movie: movie }));
+            }
+        } else {
+            alert('로그인이 필요합니다.');
+            navigate('/login');
+        }
+    };
 
     const handleReportClick = () => {
         setShowReport((prev) => !prev);
     };
-
-    const handleSubscribeClick = () => {
-        // 구독 안 되어 있으면 구독 추가
-        dispatch(
-            AddNewSubscription({
-                user_id: isLoginUser.user_id,
-                channel_id: channelId,
-            })
-        );
-    };
-
-    const handleShowPopup = (e) => {
-        e.stopPropagation();
-        const modal = document.querySelector('#subscript-popup');
-        modal.showModal();
-    };
-    const handleClosePopup = () => {
-        const modal = document.querySelector('#subscript-popup');
-        modal.close();
-    };
-
-    const handleLikeClick = () => {
-        if (isLiked) {
-            setIsLiked(false);
-        } else {
-            setIsLiked(true);
-            setIsDisLiked(false);
-            dispatch(IsAddList({ type: 'like_Movie_List', movie_id }));
-        }
-    };
-
-    const handleDisLikeClick = () => {
-        if (isDisLiked) {
-            setIsDisLiked(false);
-        } else {
-            setIsDisLiked(true);
-            setIsLiked(false);
-        }
-    };
-
-    const navigate = useNavigate();
 
     return (
         <BelowWrap>
@@ -94,76 +66,86 @@ const Below = ({
                         <p className='channel_subscribers'>{channelSubscribers}명</p>
                     </div>
                     <div className='subscribers'>
-                        {isSubscribed ? (
-                            <Button className='subscribers-btn' onClick={handleShowPopup}>
-                                <img
-                                    src='https://raw.githubusercontent.com/React-Project-Team1/data-center/752a52cbfb5bf64b383b0941ba3834539b2988ac/Icon/Notification.svg'
-                                    alt='구독 중'
-                                    className='img'
-                                />
-                                구독중
-                            </Button>
-                        ) : (
-                            <Button className='not-subscribers-btn' onClick={handleSubscribeClick}>
-                                구독
-                            </Button>
-                        )}
-
-                        <Popup
-                            handleClosePopup={handleClosePopup}
-                            channel_name={channel_name}
-                            thisChannelID={channelId}
-                        />
+                        <SubscribersBtn channel_id={channelId} channel_name={channel_name} />
                     </div>
                 </div>
 
                 <div className='action'>
                     <span className='Like'>
-                        <button className='BelowBtn like' onClick={handleLikeClick}>
+                        <Button
+                            className='BelowBtn like'
+                            onClick={(e) => handleClickType(e, 'like_Movie_List')}
+                        >
                             <img
                                 className='img'
                                 src={
-                                    isLiked
+                                    isLoginUser['like_Movie_List']?.find(
+                                        (user) => user.movie_id === movie_id
+                                    )
                                         ? 'https://raw.githubusercontent.com/React-Project-Team1/data-center/23eefc8c9a7f5aebbc05941d76cabae0ea0fca14/Icon/disLike_black.svg'
                                         : 'https://raw.githubusercontent.com/React-Project-Team1/data-center/ee727f8dfb7bcd0c51e97b02fc6c584acdb7cd2f/Icon/like.svg.svg'
                                 }
                                 alt=''
                             />
                             <span className='BelowBtn_comment'>{movieLikeCount}</span>
-                        </button>
-                        <button className='BelowBtn' onClick={handleDisLikeClick}>
+                        </Button>
+                        <Button
+                            className='BelowBtn'
+                            onClick={(e) => handleClickType(e, 'like_Movie_List')}
+                        >
                             <img
                                 className='img'
                                 src={
-                                    isDisLiked
+                                    isLoginUser['like_Movie_List']?.find(
+                                        (user) => user.movie_id === movie_id
+                                    )
                                         ? 'https://raw.githubusercontent.com/React-Project-Team1/data-center/a95871720c235be8180dd58ccc5bf67fbb92d7a4/Icon/DisLike_black.svg'
                                         : 'https://raw.githubusercontent.com/React-Project-Team1/data-center/cfcea0ca72ded7c526b3eff908c10fbe750b2924/Icon/dislike.svg.svg'
                                 }
                                 alt=''
                             />
-                        </button>
+                        </Button>
                     </span>
 
-                    <button className='BelowBtn'>
+                    <Button
+                        className='BelowBtn'
+                        onClick={(e) => handleClickType(e, 'Download_List')}
+                    >
                         <img
                             className='img'
-                            src='https://raw.githubusercontent.com/React-Project-Team1/data-center/752a52cbfb5bf64b383b0941ba3834539b2988ac/Icon/save2.svg.svg'
+                            src={
+                                isLoginUser['Download_List']?.find(
+                                    (user) => user.movie_id === movie_id
+                                )
+                                    ? 'https://raw.githubusercontent.com/React-Project-Team1/data-center/01142956452b8bed27fa95419332aca1f595ea45/Icon/trash.svg'
+                                    : 'https://raw.githubusercontent.com/React-Project-Team1/data-center/752a52cbfb5bf64b383b0941ba3834539b2988ac/Icon/save2.svg.svg'
+                            }
                             alt=''
                         />
-                        <span className='BelowBtn_comment'>오프라인 저장</span>
-                    </button>
+                        <span className='BelowBtn_comment'>
+                            {isLoginUser['Download_List']?.find(
+                                (user) => user.movie_id === movie_id
+                            )
+                                ? '오프라인 저장 삭제'
+                                : '오프라인 저장'}
+                        </span>
+                    </Button>
 
-                    <button className='BelowBtn'>
+                    <Button className={'BelowBtn'} onClick={(e) => handleClickType(e, 'Playlist')}>
                         <img
                             className='img'
                             src='https://raw.githubusercontent.com/React-Project-Team1/data-center/cfcea0ca72ded7c526b3eff908c10fbe750b2924/Icon/save.svg.svg'
                             alt=''
                         />
-                        <span className='BelowBtn_comment'>저장</span>
-                    </button>
-                    <button className='BelowBtn' onClick={handleReportClick}>
+                        <span className='BelowBtn_comment'>
+                            {isLoginUser['Playlist']?.find((user) => user.movie_id === movie_id)
+                                ? '재생목록 삭제'
+                                : '재생목록 저장'}
+                        </span>
+                    </Button>
+                    <Button className='BelowBtn' onClick={handleReportClick}>
                         <LuMoreHorizontal className='icons' />
-                    </button>
+                    </Button>
                     {showReport && (
                         <div className='report-text'>
                             <RiFlagLine /> 신고
