@@ -21,7 +21,7 @@ const UserMenu = () => {
             </a>
             <a href='#' onClick={() => setMenu(!menu)}>
                 <span className='user-profile'>
-                    {isLoginUser.user_name.charAt(0)}
+                    {isLoginUser?.user_name?.charAt(0)}
                     {menu && <UserMenuList />}
                 </span>
             </a>

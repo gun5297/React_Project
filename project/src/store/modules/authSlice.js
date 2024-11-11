@@ -39,28 +39,44 @@ export const authSlice = createSlice({
         AddNewUser(state, action) {
             // 새로운 유저 회원가입 조건문 처리 해야함
             // 로그인, 로그아웃 등 기능은 별도로 구현 해야함
-            const NewUser = {
-                user_id: Math.floor(Math.random() * 1000000),
-                ...action.payload,
-                user_search_list: [],
-                // 시청 기록
-                Viewing_Record: [
-                    // 동영상 정보
-                ],
-                // 재생 목록
-                Playlist: [],
-                // 나중에 볼 동영상
-                Later_Watch: [],
-                // 좋아요 표시한 동영상
-                like_Movie_List: [],
-                // 오프라인 저장 동영상
-                Download_List: [],
-                // 구독한 채널 아이디
-                Subscription_Id: [],
-            };
-            state.LoginUser.push(NewUser);
-            state.isLoginUser = NewUser;
-            state.isAuth = true;
+
+            if (action.payload.ip) {
+                const thisUser = state.LoginUser.find((user) => user.user_id === action.payload.ip);
+                if (thisUser) {
+                    state.isLoginUser = thisUser;
+                } else {
+                    const NewUser = {
+                        user_id: action.payload.ip,
+                        user_search_list: [],
+                        Viewing_Record: [],
+                    };
+                    state.LoginUser.push(NewUser);
+                    state.isLoginUser = NewUser;
+                }
+            } else {
+                const NewUser = {
+                    user_id: Math.floor(Math.random() * 1000000),
+                    ...action.payload,
+                    user_search_list: [],
+                    // 시청 기록
+                    Viewing_Record: [
+                        // 동영상 정보
+                    ],
+                    // 재생 목록
+                    Playlist: [],
+                    // 나중에 볼 동영상
+                    Later_Watch: [],
+                    // 좋아요 표시한 동영상
+                    like_Movie_List: [],
+                    // 오프라인 저장 동영상
+                    Download_List: [],
+                    // 구독한 채널 아이디
+                    Subscription_Id: [],
+                };
+                state.LoginUser.push(NewUser);
+                state.isLoginUser = NewUser;
+                state.isAuth = true;
+            }
         },
         IsAddList(state, action) {
             // 시청기록 , 재생목록, 나중에 볼 동영상, 좋아요 표시한 동영상, 오프라인 저장 동영상 을 추가하는 동작
