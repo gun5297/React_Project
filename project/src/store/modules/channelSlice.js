@@ -50,7 +50,6 @@ export const channelSlice = createSlice({
             // 영상 수정 로직
             localStorage.setItem('YoutubeChannel', JSON.stringify(state.Channel));
         },
-
         AddNewMoviesComment(state, action) {
             const { movie_id, movie_channel, comment_body, comment_user_id, comment_user_name } =
                 action.payload;
@@ -70,16 +69,44 @@ export const channelSlice = createSlice({
         },
 
         DelMoviesComment(state, action) {
-            // 댓글 삭제 로직
+            const { movie_id, movie_channel, comment_id } = action.payload;
+            const channel = state.Channel[movie_channel]; // 채널 정보 찾기
+            const movie = channel.Movies.find((movie) => movie.movie_id === movie_id);
+
+            if (movie) {
+                movie.movie_comments = movie.movie_comments.filter(
+                    (comment) => comment.comment_id !== comment_id
+                );
+            }
             localStorage.setItem('YoutubeChannel', JSON.stringify(state.Channel));
         },
 
         IsMovieChangeLike(state, action) {
             // 좋아요 수 변경 로직
+            const { channel_name, type, movie_id } = action.payload;
+            const thisChannel = state.Channel[channel_name];
+            const thisMovie = thisChannel.Movies.find((movie) => movie.movie_id === movie_id);
+            if (type === 'plus') {
+                thisMovie.movie_like_count += 1;
+            } else {
+                thisMovie.movie_like_count -= 1;
+            }
+
             localStorage.setItem('YoutubeChannel', JSON.stringify(state.Channel));
         },
+        IsMovieChangeSubscriber(state, action) {
+            // 구독자 변경 로직
+            const { channel_name, type } = action.payload;
+            const thisChannel = state.Channel[channel_name];
+            if (type === 'plus') {
+                thisChannel.channel_subscribers += 1;
+            } else {
+                thisChannel.channel_subscribers -= 1;
+            }
 
-        getAllMovies(state, action) {
+            localStorage.setItem('YoutubeChannel', JSON.stringify(state.Channel));
+        },
+        getAllMovies(state) {
             state.allMovies = [];
             Object.keys(state.Channel).forEach((channel) => {
                 state.allMovies.push(...state.Channel[channel].Movies);
@@ -99,5 +126,6 @@ export const {
     DelMoviesComment,
     IsMovieChangeLike,
     getAllMovies,
+    IsMovieChangeSubscriber,
 } = channelSlice.actions;
 export default channelSlice.reducer;

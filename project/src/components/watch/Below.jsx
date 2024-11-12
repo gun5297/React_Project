@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IsAddList, IsDelList } from '../../store/modules/authSlice';
 import { Button } from '../../ui/Button';
-
 import SubscribersBtn from '../../ui/Subscribers/SubscribersBtn';
+import { getAllMovies, IsMovieChangeLike } from '../../store/modules/channelSlice';
 
 const Below = ({
     movie,
@@ -31,14 +31,34 @@ const Below = ({
     const { isLoginUser, isAuth } = useSelector((state) => state.auth); // 로그인된 사용자 정보 가져오기
     const navigate = useNavigate();
 
-    //오프라인/재생목록 저장
+    // 오프라인/재생목록 저장
     const handleClickType = (e, saveType) => {
         e.preventDefault();
-        if (isLoginUser || isAuth) {
+        if (isLoginUser && isAuth) {
             if (isLoginUser[saveType].find((user) => user.movie_id === movie_id)) {
-                dispatch(IsDelList({ user_id: isLoginUser.user_id, type: saveType, movie: movie }));
+                dispatch(
+                    IsDelList({
+                        user_id: isLoginUser.user_id,
+                        type: saveType,
+                        movie: movie,
+                    })
+                );
+                if (saveType === 'like_Movie_List') {
+                    dispatch(IsMovieChangeLike({ channel_name, movie_id, type: 'minus' }));
+                    dispatch(getAllMovies());
+                }
             } else {
-                dispatch(IsAddList({ user_id: isLoginUser.user_id, type: saveType, movie: movie }));
+                dispatch(
+                    IsAddList({
+                        user_id: isLoginUser.user_id,
+                        type: saveType,
+                        movie: movie,
+                    })
+                );
+                if (saveType === 'like_Movie_List') {
+                    dispatch(IsMovieChangeLike({ channel_name, movie_id, type: 'plus' }));
+                    dispatch(getAllMovies());
+                }
             }
         } else {
             alert('로그인이 필요합니다.');
@@ -72,7 +92,7 @@ const Below = ({
 
                 <div className='action'>
                     <span className='Like'>
-                        <Button
+                        <button
                             className='BelowBtn like'
                             onClick={(e) => handleClickType(e, 'like_Movie_List')}
                         >
@@ -88,15 +108,15 @@ const Below = ({
                                 alt=''
                             />
                             <span className='BelowBtn_comment'>{movieLikeCount}</span>
-                        </Button>
-                        <Button
+                        </button>
+                        <button
                             className='BelowBtn'
-                            onClick={(e) => handleClickType(e, 'like_Movie_List')}
+                            onClick={(e) => handleClickType(e, 'dislike_Movie_List')}
                         >
                             <img
                                 className='img'
                                 src={
-                                    isLoginUser['like_Movie_List']?.find(
+                                    isLoginUser['dislike_Movie_List']?.find(
                                         (user) => user.movie_id === movie_id
                                     )
                                         ? 'https://raw.githubusercontent.com/React-Project-Team1/data-center/a95871720c235be8180dd58ccc5bf67fbb92d7a4/Icon/DisLike_black.svg'
@@ -104,7 +124,7 @@ const Below = ({
                                 }
                                 alt=''
                             />
-                        </Button>
+                        </button>
                     </span>
 
                     <Button

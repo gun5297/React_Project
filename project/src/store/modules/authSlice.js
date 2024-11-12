@@ -59,6 +59,7 @@ export const authSlice = createSlice({
                     Playlist: [],
                     Later_Watch: [],
                     like_Movie_List: [],
+                    dislike_Movie_List: [],
                     Download_List: [],
                     Subscription_Id: [],
                 };
@@ -66,7 +67,7 @@ export const authSlice = createSlice({
                 state.isLoginUser = NewUser;
                 state.isAuth = true;
             }
-            localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.NewUser));
+            localStorage.setItem('YoutubeIsLoginUser', JSON.stringify(state.isLoginUser));
             localStorage.setItem('YoutubeIsAuth', JSON.stringify(state.isAuth));
             localStorage.setItem('YoutubeLoginUser', JSON.stringify(state.LoginUser));
         },
@@ -149,7 +150,7 @@ export const authSlice = createSlice({
             const { user_id, channel_id } = action.payload;
             const User = state.LoginUser.find((user) => user.user_id === user_id);
             if (User) {
-                if (!User.Subscription_Id.includes(channel_id)) {
+                if (!User.Subscription_Id?.includes(channel_id)) {
                     User.Subscription_Id.push(channel_id);
                 }
                 state.isLoginUser = User;
