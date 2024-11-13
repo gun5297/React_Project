@@ -1,14 +1,15 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import SideMenu from './SideMenu';
-import { LayoutWrap } from '../style/styled';
+import { LayoutWrap, MobileFooterWrap } from '../style/styled';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import PopWrap from './PopWrap';
+import MobileFooter from './MobileFooter';
 
 const Layout = () => {
     const { isSideMenu } = useSelector((state) => state.header);
     const { pathname } = useLocation();
-
     useEffect(() => {
         window.scrollTo({
             top: 0,
@@ -24,6 +25,8 @@ const Layout = () => {
                 {isSideMenu && <SideMenu />}
                 <Outlet />
             </div>
+            <PopWrap />
+            <MobileFooter />
         </LayoutWrap>
     );
 };

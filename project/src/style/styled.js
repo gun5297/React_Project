@@ -369,7 +369,9 @@ export const SpinnerWrap = styled.div`
         align-items: center;
         justify-content: center;
         border-radius: inherit;
-        padding: 0.5rem 1rem;
+
+        /* 11/12 김혜림 삭제 */
+        /* padding: 0.5rem 1rem; */
     }
 
     .spinner-circle:before {
@@ -416,5 +418,27 @@ export const WrongapproachWrap = styled.div`
     .not {
         text-align: center;
         font-size: 2rem;
+    }
+`;
+
+export const MobileFooterWrap = styled.div`
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    .menu-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 2%;
+    }
+    .btn-item {
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 `;

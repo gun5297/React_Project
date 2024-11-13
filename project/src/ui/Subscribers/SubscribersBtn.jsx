@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../Button';
-import Popup from '../popup/Popup';
+
 import { AddNewSubscription } from '../../store/modules/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { SubscribersBtnWrap } from './styled';
 import { IsMovieChangeSubscriber } from '../../store/modules/channelSlice';
+import { isSubscribersTrue } from '../../store/modules/subscribersSlice';
+import { isSavePopTrue } from '../../store/modules/savePopupSlice';
 
-const SubscribersBtn = ({ channel_id, channel_name }) => {
+const SubscribersBtn = ({ channel_id, channel_name, thisChannel }) => {
     const { isLoginUser, isAuth } = useSelector((state) => state.auth);
-
     const myChannel = channel_id === isLoginUser?.user_id;
     const isSubscribed = isLoginUser?.Subscription_Id?.includes(channel_id);
 
@@ -26,6 +27,7 @@ const SubscribersBtn = ({ channel_id, channel_name }) => {
                 })
             );
             dispatch(IsMovieChangeSubscriber({ channel_name, type: 'plus' }));
+            dispatch(isSavePopTrue(`${thisChannel.channel_name} 채널 구독`));
         } else {
             alert('error');
         }
@@ -33,13 +35,9 @@ const SubscribersBtn = ({ channel_id, channel_name }) => {
     const handleShowPopup = (e) => {
         if (!isAuth) navigate(`/login`);
         e.stopPropagation();
-        const modal = document.querySelector('#subscript-popup');
-        modal.showModal();
+        dispatch(isSubscribersTrue(thisChannel));
     };
-    const handleClosePopup = () => {
-        const modal = document.querySelector('#subscript-popup');
-        modal.close();
-    };
+
     const handleMyStudio = (e) => {
         e.stopPropagation();
         if (isAuth) navigate(`/studio/${channel_id}/dashboard`);
@@ -74,12 +72,6 @@ const SubscribersBtn = ({ channel_id, channel_name }) => {
                         구독
                     </Button>
                 )}
-
-                <Popup
-                    handleClosePopup={handleClosePopup}
-                    channel_name={channel_name}
-                    thisChannelID={channel_id}
-                />
             </SubscribersBtnWrap>
         );
 };

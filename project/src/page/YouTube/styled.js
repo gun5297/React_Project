@@ -13,7 +13,7 @@ export const YouTubeWrap = styled.div`
         white-space: nowrap; /* 항목들이 한 줄로 나오게 설정 */
         margin-bottom: 2.6rem;
         .top-menu-li {
-            margin-right: 1.6rem;
+            margin-right: 1rem;
             &.active {
                 .top-menu-button {
                     background-color: #000;
@@ -37,7 +37,7 @@ export const YouTubeWrap = styled.div`
             &:not(:nth-child(${(props) => props.$not}n)) {
                 margin-right: 1%;
             }
-            &:nth-child(5n) {
+            &:nth-child(${(props) => props.$not}n) {
                 .plus-menu {
                     .save-list {
                         position: absolute;
@@ -78,13 +78,17 @@ export const YouTubeWrap = styled.div`
         padding: 0;
         width: 100%;
         .top-category {
-            padding: 0 1rem;
-            overflow: hidden;
+            /* 11/12 김혜림 수정 */
+            overflow-x: scroll;
+            white-space: nowrap;
+            padding: 1rem;
             .top-menu-li {
                 button {
+                    /* 11/12 김혜림 수정 */
                     display: inline-block;
                     width: fit-content;
-                    padding: 0.5rem 1rem;
+                    padding: 0.6rem 1rem;
+                    font-size: 1.8rem;
                 }
             }
         }
