@@ -1360,50 +1360,47 @@ Error generating stack: `+i.message+`
                 }
             }
         }
-        .movie-item {
-            .search-video-wrap {
-                .video-loder {
+
+        .video-loder {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 7%;
+            .video-wrap {
+                width: 100%;
+                iframe,
+                img {
                     height: 100%;
+                    border-radius: 0%;
+                }
+            }
+            .text-wrap {
+                width: 100%;
+                display: flex;
+                .channel-logo {
                     display: flex;
-                    flex-direction: column;
-                    margin-bottom: 7%;
-                    .video-wrap {
+                    width: 10%;
+                    height: auto;
+                    img {
                         width: 100%;
-                        iframe,
-                        img {
-                            height: 100%;
-                            border-radius: 0%;
-                        }
+                        height: 100%;
                     }
-                    .text-wrap {
-                        width: 100%;
-                        display: flex;
-                        .channel-logo {
-                            display: flex;
-                            width: 10%;
-                            height: auto;
-                            img {
-                                width: 100%;
-                                height: 100%;
-                            }
-                        }
-                        .movie_info {
-                            width: 80%;
-                            position: absolute;
-                            left: 13%;
-                            top: 20%;
-                            .movie_title {
-                                -webkit-line-clamp: 2;
-                            }
-                            .movie_body {
-                                display: none;
-                            }
-                        }
-                        .plus-menu {
-                            top: 25%;
-                            right: 5%;
-                        }
+                }
+                .movie_info {
+                    width: 80%;
+                    position: absolute;
+                    left: 13%;
+                    top: 20%;
+                    .movie_title {
+                        -webkit-line-clamp: 2;
                     }
+                    .movie_body {
+                        display: none;
+                    }
+                }
+                .plus-menu {
+                    top: 25%;
+                    right: 5%;
                 }
             }
         }
@@ -1473,7 +1470,7 @@ Error generating stack: `+i.message+`
             }
         }
     }
-`,Hs=({channel_id:e,channel_name:t,thisChannel:n})=>{var g;const{isLoginUser:r,isAuth:o}=I(_=>_.auth),i=e===(r==null?void 0:r.user_id),s=(g=r==null?void 0:r.Subscription_Id)==null?void 0:g.includes(e),a=ae(),c=H(),u=_=>{_.stopPropagation(),o?r.user_id!==e?(a(yw({user_id:r.user_id,channel_id:e})),a(Xp({channel_name:t,type:"plus"})),a(gt(`${n.channel_name} 채널 구독`))):alert("error"):c("/login")},d=_=>{o||c("/login"),_.stopPropagation(),a(Yw(n))},m=_=>{_.stopPropagation(),o&&c(`/studio/${e}/dashboard`)};if(i)return l.jsxs(ym,{children:[l.jsx(_e,{onClick:m,className:"channel-btn",children:"채널 맞춤설정"}),l.jsx(_e,{onClick:m,className:"video-btn",children:"동영상 관리"})]});if(!i)return l.jsx(ym,{children:s?l.jsxs(_e,{className:"subscribers-btn",onClick:d,children:[l.jsx("img",{src:"https://raw.githubusercontent.com/React-Project-Team1/data-center/752a52cbfb5bf64b383b0941ba3834539b2988ac/Icon/Notification.svg",alt:"구독 중",className:"img"}),"구독중"]}):l.jsx(_e,{className:"not-subscribers-btn",onClick:u,children:"구독"})})},t4=({channel:e})=>{var u;const t=H(),{channel_image:n,channel_name:r,channel_subscribers:o,Movies:i,channel_id:s,channel_nav:a}=e,c=d=>{if(d>=1e4)return Math.floor(d/1e4)+"만명";if(d>=1e3)return Math.floor(d/1e3)+"천명";if(d<=1e3)return d+"명"};return l.jsxs("li",{className:"channel-item",onClick:()=>{var d;return t(`/channel/${((d=i[0])==null?void 0:d.movie_channel)||a}`)},children:[l.jsx("div",{className:"channel-profile",children:l.jsx("img",{src:n,alt:r,className:"channel-logo"})}),l.jsxs("div",{className:"channel-info",children:[l.jsxs("div",{className:"info-text",children:[l.jsx("h3",{className:"name",children:r}),l.jsxs("p",{className:"info",children:[l.jsxs("span",{className:"username",children:["@",((u=i[0])==null?void 0:u.movie_channel)||a]}),l.jsxs("span",{className:"sub-count",children:["구독자 ",c(o)]})]})]}),l.jsx(Hs,{channel_id:s,channel_name:a,thisChannel:e})]})]})},n4=({filteredMovies:e})=>{if(e)return l.jsx("li",{className:"movie-item",children:l.jsx("ul",{children:e.map(t=>l.jsx(Oe,{movie:t},t.movie_id))})})},r4=({Search:e,allMovies:t})=>{const{Channel:n}=I(s=>s.channel),o=Object.keys(n).map(s=>n[s]).filter(s=>s.channel_name.toLowerCase().includes(e.toLowerCase())),i=t.filter(s=>s.movie_title.toLowerCase().includes(e.toLowerCase())||s.movie_category.toLowerCase().includes(e.toLowerCase()));if(o.length===0&&i.length===0)return l.jsx(om,{children:l.jsxs("p",{className:"not-search",children:['"',e,'" 찾으시는 검색 결과가 없습니다.']})});if(o.length>0||i.length>0)return l.jsxs(om,{children:[o.map(s=>l.jsx(t4,{channel:s},s.channel_id)),l.jsx(n4,{Search:e,filteredMovies:i})]})},wm=()=>{const{Search:e}=Ct(),{allMovies:t}=I(r=>r.channel),n=ae();return C.useEffect(()=>{n(Ft())},[]),l.jsx(Sb,{children:e?l.jsx(r4,{Search:e,allMovies:t}):l.jsx(eg,{})})},bm=B.div`
+`,Hs=({channel_id:e,channel_name:t,thisChannel:n})=>{var g;const{isLoginUser:r,isAuth:o}=I(_=>_.auth),i=e===(r==null?void 0:r.user_id),s=(g=r==null?void 0:r.Subscription_Id)==null?void 0:g.includes(e),a=ae(),c=H(),u=_=>{_.stopPropagation(),o?r.user_id!==e?(a(yw({user_id:r.user_id,channel_id:e})),a(Xp({channel_name:t,type:"plus"})),a(gt(`${n.channel_name} 채널 구독`))):alert("error"):c("/login")},d=_=>{o||c("/login"),_.stopPropagation(),a(Yw(n))},m=_=>{_.stopPropagation(),o&&c(`/studio/${e}/dashboard`)};if(i)return l.jsxs(ym,{children:[l.jsx(_e,{onClick:m,className:"channel-btn",children:"채널 맞춤설정"}),l.jsx(_e,{onClick:m,className:"video-btn",children:"동영상 관리"})]});if(!i)return l.jsx(ym,{children:s?l.jsxs(_e,{className:"subscribers-btn",onClick:d,children:[l.jsx("img",{src:"https://raw.githubusercontent.com/React-Project-Team1/data-center/752a52cbfb5bf64b383b0941ba3834539b2988ac/Icon/Notification.svg",alt:"구독 중",className:"img"}),"구독중"]}):l.jsx(_e,{className:"not-subscribers-btn",onClick:u,children:"구독"})})},t4=({channel:e})=>{var u;const t=H(),{channel_image:n,channel_name:r,channel_subscribers:o,Movies:i,channel_id:s,channel_nav:a}=e,c=d=>{if(d>=1e4)return Math.floor(d/1e4)+"만명";if(d>=1e3)return Math.floor(d/1e3)+"천명";if(d<=1e3)return d+"명"};return l.jsxs("li",{className:"channel-item",onClick:()=>{var d;return t(`/channel/${((d=i[0])==null?void 0:d.movie_channel)||a}`)},children:[l.jsx("div",{className:"channel-profile",children:l.jsx("img",{src:n,alt:r,className:"channel-logo"})}),l.jsxs("div",{className:"channel-info",children:[l.jsxs("div",{className:"info-text",children:[l.jsx("h3",{className:"name",children:r}),l.jsxs("p",{className:"info",children:[l.jsxs("span",{className:"username",children:["@",((u=i[0])==null?void 0:u.movie_channel)||a]}),l.jsxs("span",{className:"sub-count",children:["구독자 ",c(o)]})]})]}),l.jsx(Hs,{channel_id:s,channel_name:a,thisChannel:e})]})]})},n4=({filteredMovies:e})=>{if(e)return l.jsx(l.Fragment,{children:e.map(t=>l.jsx(Oe,{movie:t},t.movie_id))})},r4=({Search:e,allMovies:t})=>{const{Channel:n}=I(s=>s.channel),o=Object.keys(n).map(s=>n[s]).filter(s=>s.channel_name.toLowerCase().includes(e.toLowerCase())),i=t.filter(s=>s.movie_title.toLowerCase().includes(e.toLowerCase())||s.movie_category.toLowerCase().includes(e.toLowerCase()));if(o.length===0&&i.length===0)return l.jsx(om,{children:l.jsxs("p",{className:"not-search",children:['"',e,'" 찾으시는 검색 결과가 없습니다.']})});if(o.length>0||i.length>0)return l.jsxs(om,{children:[o.map(s=>l.jsx(t4,{channel:s},s.channel_id)),l.jsx(n4,{Search:e,filteredMovies:i})]})},wm=()=>{const{Search:e}=Ct(),{allMovies:t}=I(r=>r.channel),n=ae();return C.useEffect(()=>{n(Ft())},[]),l.jsx(Sb,{children:e?l.jsx(r4,{Search:e,allMovies:t}):l.jsx(eg,{})})},bm=B.div`
     width: 100%;
     box-sizing: border-box;
     padding: 2% 3.5%;
