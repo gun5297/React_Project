@@ -22,7 +22,7 @@ import { BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
 const App = () => {
     return (
         <>
-            <HashRouter>
+            <BrowserRouter>
                 <GlobalStyle />
                 <Routes>
                     <Route path='/' element={<Layout />}>
@@ -61,7 +61,7 @@ const App = () => {
                         <Route path=':User_ID/comment' element={<CommentPage />} />
                     </Route>
                 </Routes>
-            </HashRouter>
+            </BrowserRouter>
         </>
     );
 };
