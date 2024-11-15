@@ -336,23 +336,32 @@ export const LayoutWrap = styled.div`
         position: relative;
         .scroll_up {
             position: fixed;
-            bottom: 10rem;
+            bottom: 3rem;
             right: 3rem;
             .scroll_up_btn {
-                width: 8rem;
-                height: 8rem;
+                width: 5rem;
+                height: 5rem;
                 border-radius: 50%;
-                background-repeat: no-repeat;
-                background-position: 50% 50%;
-                background-image: url('https://github.com/React-Project-Team1/data-center/blob/main/Icon/up.jpg?raw=true');
-                background-size: cover;
                 cursor: pointer;
                 border: none;
+                background-color: rgba(0, 0, 0, 0);
+                img {
+                    width: 100%;
+                }
             }
         }
     }
     @media ${media.mobile} {
         margin-bottom: 9rem;
+        .content-wrap {
+            .scroll_up {
+                right: 5rem;
+                bottom: 10rem;
+                .scroll_up_btn {
+                    width: 7rem;
+                }
+            }
+        }
     }
 `;
 
