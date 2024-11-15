@@ -23,6 +23,7 @@ export const BelowWrap = styled.div`
             overflow: hidden;
             .channelImg {
                 width: 4rem;
+                height: 4rem;
                 margin-top: 0.5rem;
                 border-radius: 2.5rem;
             }
@@ -157,6 +158,11 @@ export const BelowWrap = styled.div`
         }
     }
     @media ${media.mobile} {
+        padding: 1rem;
+        box-sizing: border-box;
+        .channel_detail {
+            max-width: 20rem;
+        }
         .Comment_items {
             right: -2rem;
         }
@@ -240,6 +246,7 @@ export const BelowDetailWrap = styled.div`
 
         .channelImg {
             width: 4rem;
+            height: 4rem;
             margin-top: 0.5rem;
             border-radius: 2.5rem;
         }
@@ -463,6 +470,12 @@ export const CommentWrap = styled.div`
             font-weight: 600;
             line-height: 1.8rem;
             margin-bottom: 0.3rem;
+        }
+    }
+    @media ${media.mobile} {
+        .section {
+            min-height: 0;
+            margin-bottom: 0;
         }
     }
 `;
