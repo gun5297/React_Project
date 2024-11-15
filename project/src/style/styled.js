@@ -303,6 +303,7 @@ export const SideMenuWrap = styled.div`
         width: 18rem;
         word-break: keep-all;
         font-size: 1rem;
+        margin-bottom: 20rem;
     }
     .not-login-span {
         display: block;
@@ -355,7 +356,6 @@ export const LayoutWrap = styled.div`
         margin-bottom: 9rem;
         .content-wrap {
             .scroll_up {
-                right: 5rem;
                 bottom: 10rem;
                 .scroll_up_btn {
                     width: 7rem;
