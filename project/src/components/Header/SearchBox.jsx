@@ -33,7 +33,7 @@ const SearchBox = ({ setIsShown, isShown, search, setSearch }) => {
                 list='search-options'
             />
             <datalist id='search-options'>
-                {isLoginUser.user_search_list.length === 0 &&
+                {isLoginUser?.user_search_list?.length === 0 &&
                     allTitle
                         .filter((title) => title.includes(search))
                         .slice(0, 10)
