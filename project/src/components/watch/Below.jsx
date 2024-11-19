@@ -45,19 +45,15 @@ const Below = ({
             navigate('/login');
             return;
         }
-
         const isMovieInList = (type) =>
             isLoginUser[type].some((user) => user.movie_id === movie_id);
-
         const removeMovieFromList = (type) => {
             dispatch(IsDelList({ user_id: isLoginUser.user_id, type, movie }));
         };
-
         const addMovieToList = () => {
             dispatch(IsAddList({ user_id: isLoginUser.user_id, type: saveType, movie }));
             dispatch(isSavePopTrue(Msg));
         };
-
         const updateMovieLikeStatus = (operation) => {
             dispatch(IsMovieChangeLike({ channel_name, movie_id, type: operation }));
         };

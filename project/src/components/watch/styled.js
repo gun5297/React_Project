@@ -399,7 +399,7 @@ export const CommentWrap = styled.div`
         font-size: 1.4rem;
     }
     .cancel {
-        margin-right: 1.5rem;
+        margin-left: 1rem;
         &:hover {
             background: rgba(0, 0, 0, 0.1);
         }

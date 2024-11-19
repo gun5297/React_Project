@@ -3,6 +3,7 @@ import { IoMdMore } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { DelMoviesComment, getAllMovies } from '../../store/modules/channelSlice';
 import { useMouseOutside } from '../../hook/useMouseOutside';
+import { isSavePopTrue } from '../../store/modules/savePopupSlice';
 
 const CommentItem = ({ item, movie_id, movie_channel }) => {
     const { comment_user_name, comment_body, comment_user_id, comment_id } = item;
@@ -24,7 +25,7 @@ const CommentItem = ({ item, movie_id, movie_channel }) => {
             comment_id,
             comment_user_id,
         };
-
+        dispatch(isSavePopTrue('댓글이 삭제'));
         dispatch(DelMoviesComment(payload));
         dispatch(getAllMovies());
     };
