@@ -27,7 +27,7 @@ export const SubscribersBtnWrap = styled.div`
     /* 11-18 김신영 추가 */
     .channel-btn,
     .video-btn {
-        width: 6.1vw;
+        min-width: 6.1vw;
         letter-spacing: -0.1rem;
     }
     .channel-btn {

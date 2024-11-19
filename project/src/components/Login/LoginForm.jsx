@@ -44,6 +44,7 @@ const LoginForm = ({ loginCheck, setLoginCheck, setPageType }) => {
             }
         } else {
             setLoginCheck(true);
+            setUser({ user_email: '', user_password: '' });
             return;
         }
     };
@@ -64,6 +65,7 @@ const LoginForm = ({ loginCheck, setLoginCheck, setPageType }) => {
                     <input
                         type='email'
                         name='user_email'
+                        value={user.user_email}
                         placeholder='이메일'
                         onChange={changeInput}
                     />
@@ -71,6 +73,7 @@ const LoginForm = ({ loginCheck, setLoginCheck, setPageType }) => {
                         type='password'
                         name='user_password'
                         placeholder='비밀번호'
+                        value={user.user_password}
                         onChange={changeInput}
                         className={idChk ? 'password active' : 'password'}
                     />
@@ -81,12 +84,14 @@ const LoginForm = ({ loginCheck, setLoginCheck, setPageType }) => {
                     <input
                         type='email'
                         name='user_email'
+                        value={user.user_email}
                         placeholder='이메일'
                         onChange={changeInput}
                     />
                     <input
                         type='password'
                         name='user_password'
+                        value={user.user_password}
                         placeholder='비밀번호'
                         onChange={changeInput}
                         className={idChk ? 'password active' : 'password'}

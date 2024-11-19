@@ -12,12 +12,23 @@ const Login = () => {
     const [loginCheck, setLoginCheck] = useState(false);
     const navigate = useNavigate();
 
+    const pageName = () => {
+        switch (pageType) {
+            case 'quickLogin':
+                return '계정 선택';
+            case 'login':
+                return '로그인';
+            case 'join':
+                return '계정 생성';
+        }
+    };
+
     useEffect(() => {
         if (isAuth) {
             navigate('/');
         }
-        document.title = '로그인 | YouTube';
-    }, [isAuth]);
+        document.title = `${pageName()} | YouTube`;
+    }, [isAuth, pageType]);
 
     if (!isAuth)
         return (
@@ -27,11 +38,7 @@ const Login = () => {
                         <div className='logo-wrap'>
                             <img src='https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20170301123009%21Google_%22G%22_logo.svg' />
                         </div>
-                        <h2 className='title'>
-                            {pageType === 'quickLogin' && '계정 선택'}
-                            {pageType === 'login' && '로그인'}
-                            {pageType === 'join' && '계정 생성'}
-                        </h2>
+                        <h2 className='title'>{pageName()}</h2>
                         <p className='nav-youtube' onClick={() => navigate('/')}>
                             YouTube로 이동
                         </p>
