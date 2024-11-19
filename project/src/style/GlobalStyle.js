@@ -40,9 +40,24 @@ const GlobalStyle = createGlobalStyle`
     display: none;
   }
 
+  @media ${media.tablet2} {
+    html{
+      font-size: 9px;
+    }
+  }
+  @media ${media.tablet1} {
+    html{
+      font-size: 8.5px;
+    }
+  }
   @media ${media.tablet} {
     html{
       font-size: 8px;
+    }
+  }
+  @media ${media.tablet3} {
+    html{
+      font-size: 7px;
     }
   }
   @media ${media.mobile} {
