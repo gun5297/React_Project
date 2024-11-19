@@ -23,7 +23,14 @@ const UserMenu = () => {
                     alt='MakingVideo'
                 />
             </a>
-            <a href='#' onClick={() => setMenu(!menu)} ref={menuRef}>
+            <a
+                href='#'
+                onClick={(e) => {
+                    e.preventDefault();
+                    setMenu(!menu);
+                }}
+                ref={menuRef}
+            >
                 <span className='user-profile'>
                     {isLoginUser?.user_name?.charAt(0)}
                     {menu && <UserMenuList />}
