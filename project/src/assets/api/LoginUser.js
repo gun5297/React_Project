@@ -479,4 +479,28 @@ export const LoginUser = [
         // 구독한 채널 아이디
         Subscription_Id: [],
     },
+    {
+        user_id: 4902181294,
+        user_name: '건영',
+        user_age: 24,
+        user_tel: '010-7424-5414',
+        user_email: 'gunyoung@naver.com',
+        user_password: '1111',
+        user_search_list: [],
+        // 시청 기록
+        Viewing_Record: [
+            // 동영상 정보
+        ],
+        // 재생 목록
+        Playlist: [],
+        // 나중에 볼 동영상
+        Later_Watch: [],
+        // 좋아요 표시한 동영상
+        like_Movie_List: [],
+        dislike_Movie_List: [],
+        // 오프라인 저장 동영상
+        Download_List: [],
+        // 구독한 채널 아이디
+        Subscription_Id: [],
+    },
 ];

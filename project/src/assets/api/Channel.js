@@ -3107,4 +3107,54 @@ export const Channel = {
             },
         ],
     },
+    gunyoung: {
+        channel_id: 4902181294,
+        channel_name: '건영',
+        channel_nav: 'gunyoung',
+        channel_banner:
+            'https://github.com/React-Project-Team1/data-center/blob/main/images/Youtube/banner2.png?raw=true',
+        channel_image:
+            'https://yt3.googleusercontent.com/ytc/AIdro_nCDhLWmJKaPDufNiUx2eUMWUPVfQ5O7PqpF4Kk_Jbt_hg=s160-c-k-c0x00ffffff-no-rj',
+        channel_introduction: '안녕하세요 리액트 팀 프로젝트 팀장 고건영입니다.',
+        // 채널의 구독자 수
+        channel_subscribers: 3049122,
+        Movies: [
+            {
+                movie_id: 32953291123,
+                movie_title: 'React Team Project YouTube',
+                movie_body:
+                    '팀장: 고건영 | 팀원 : 김혜림, 강솔, 김신영, 서희원 | 프로젝트 기간 : 약 3주',
+                movie_image:
+                    'https://github.com/React-Project-Team1/data-center/blob/main/images/Youtube/ytb.png?raw=true',
+                movie_video:
+                    'https://www.youtube.com/embed/At2o8vGy9f8?si=-fUNmb0LvXuxa-1d&autoplay=1&mute=1',
+                // 동영상 좋아요 수
+                movie_like_count: 41202,
+                movie_category: 'vlog',
+                movie_channel: 'gunyoung',
+                movie_channel_id: 4902181294,
+                movie_date: {
+                    year: 2024,
+                    month: 11,
+                    day: 20,
+                },
+                movie_comments: [
+                    {
+                        comment_id: 34234921,
+                        comment_body:
+                            '프로젝트의 메인 화면 개발 과정에서 여러 차례 예상치 못한 문제와 오류에 직면했지만, 이를 해결하기 위해 끊임없이 학습하고 팀원들과 적극적으로 소통하며 최적의 해결책을 모색했습니다. 그 과정에서 문제 해결 능력은 물론, 사용자 경험을 고려한 인터페이스 설계와 기능 구현의 중요성을 깊이 깨달을 수 있었습니다. 결국 팀원들이 기대했던 핵심 기능을 완성함으로써 프로젝트를 성공적으로 마무리할 수 있었고, 이는 협업과 끈기의 중요성을 다시 한번 체감한 값진 경험이었습니다',
+                        comment_user_id: 'kim',
+                        comment_user_name: '김혜림',
+                    },
+                    {
+                        comment_id: 23523911,
+                        comment_body:
+                            '개인적으로는 프로젝트 하나를 완성했다기보다 한 단계 더 배워가는 과정이었습니다. 유튜브 자체가 일상과 가까워서 실용적이고 누구에게나 친숙한 사이트를 만들었다는 느낌이 듭니다.',
+                        comment_user_id: 'kim',
+                        comment_user_name: '김신영',
+                    },
+                ],
+            },
+        ],
+    },
 };
