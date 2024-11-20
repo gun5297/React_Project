@@ -57,7 +57,6 @@ const YouTube = () => {
             setVideoCount(isSideMenu ? 8 : 10);
         }
     }, [allMovies]);
-    useEffect(() => {}, [isSideMenu]);
     useEffect(() => {
         if (observerRef.current) observerRef.current.disconnect();
         observerRef.current = new IntersectionObserver(

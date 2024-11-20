@@ -34,13 +34,11 @@ const CommentForm = ({ movie_id, movie_channel }) => {
     // 댓글 작성
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (!isAuth) {
             alert('로그인이 필요합니다.'); // 로그인 확인
             navigate('/login');
             return;
         }
-
         if (!commentInput.trim()) return;
         // 댓글 추가
         dispatch(
@@ -52,7 +50,6 @@ const CommentForm = ({ movie_id, movie_channel }) => {
                 comment_user_name: isLoginUser.user_name,
             })
         );
-
         // 댓글 입력란 초기화
         setCommentInput('');
         dispatch(getAllMovies());

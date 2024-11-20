@@ -18,7 +18,6 @@ const SaveItem = ({ save, movie }) => {
         if (ofType) {
             // 삭제
             dispatch(IsDelList({ user_id: isLoginUser.user_id, type, movie }));
-
             dispatch(isSavePopTrue(trueName));
         } else {
             // 저장
