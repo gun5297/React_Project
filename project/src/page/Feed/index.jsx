@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Video from '../../ui/Youtube/Video';
 import { useEffect, useState } from 'react';
 import { AllDelList } from '../../store/modules/authSlice';
+import Spinner from '../../components/Spinner';
 
 const Feed = ({ category }) => {
     const { Category } = useParams();
@@ -30,6 +31,9 @@ const Feed = ({ category }) => {
     useEffect(() => {
         document.title = `${getCategory()} | YouTube`;
     }, [Category]);
+
+    if (!isLoginUser) return <Spinner />;
+
     if (isLoginUser[Category || category]?.length === 0)
         return (
             <FeedWrap className='feed-wrap'>
